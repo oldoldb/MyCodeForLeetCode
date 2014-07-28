@@ -9,7 +9,7 @@ baseurl:          /MyCodeForLeetCode
 
 links:
   - name:         About
-    url:          /about
+    url:          /MyCodeForLeetCode/about
   - name:         Blog
     url:          http://oldoldb.com
     external:     true
