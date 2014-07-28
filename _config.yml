@@ -1,12 +1,11 @@
 title:            LeetCode
 description:      My Code For LeetCode OJ
-url:              http://oldoldb.github.io/MyCodeForLeetCode
+url:              # Site url.
 signoff:          # Your name.
 disqus_shortname: # disqus comment thread for post header options. ( leave blank if unwanted. )
 facebook_appid:   # appid for like button, remove from /_includes/share.html if unwanted.
 google_analytics: # set tracking, remove from /javascripts/basic.js if unwanted.
-source:           ./MyCodeForLeetCode
-
+baseurl:          /MyCodeForLeetCode
 links:
   - name:         About
     url:          /about
