@@ -1,0 +1,65 @@
+---
+layout: post
+title: Unique Binary Search Trees
+date: 2014-08-18 08:42:16
+disqus: y
+---
+
+## 题意：
+求n个节点可以构成的结构不同的二叉树的个数
+
+## 要求：
+无
+
+## 思路：
+组合数学中卡特兰数的应用。这里我用递归实现。
+- n=1，显然ans=1
+- n=2，显然ans=2
+- n=3，不妨以其中一个节点位根节点，那么剩下两个节点有(2,0),(1,1),(0,2)种放置方式，即ans=f(2)*f(0)+f(1)*f(1)+f(0)*f(2)
+- 那么f(n)即可通过遍历左右节点来求，这里为了f(n-1)*f(0)有意义不妨令n=0时，ans=1
+
+## 更新：
+总结leetcode树的题目
+
+## 代码：
+### C++:
+
+{% highlight c++ %}
+class Solution {
+public:
+    int numTrees(int n) {
+        if(n==0)
+            return 1;
+        else if(n==1)
+            return 1;
+        else if(n==2)
+            return 2;
+        else
+        {
+            int ans=0;
+            for(int i=0;i<n;i++)
+                ans+=numTrees(i)*numTrees(n-i-1);
+            return ans;
+        }
+    }
+};
+
+
+ {% endhighlight %}
+### python:
+
+{% highlight python %}
+class Solution:
+    # @return an integer
+    def numTrees(self, n):
+        if n==0 or n==1:
+            return 1
+        elif n==2:
+            return 2
+        else:
+            ans=0
+            for i in range(n):
+                ans+=self.numTrees(i)*self.numTrees(n-1-i)
+            return ans
+                
+ {% endhighlight %}
