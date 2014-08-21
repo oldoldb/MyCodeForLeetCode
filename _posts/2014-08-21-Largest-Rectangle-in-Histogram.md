@@ -1,0 +1,77 @@
+---
+layout: post
+title: Largest Rectangle in Histogram
+date: 2014-08-21 16:28:16
+disqus: y
+---
+
+## 题意：
+求最大直方图面积
+
+## 要求：
+
+
+## 思路：
+维护一个栈
+
+## 更新：
+总结leetcode堆栈题目
+
+## 代码：
+
+### C++:
+
+{% highlight c++ %}
+class Solution {
+public:
+    int largestRectangleArea(vector<int> &height) {
+        stack<int> st;
+        height.push_back(0);
+        int n=height.size();
+        int ans=0;
+        for(int i=0;i<n;i++)
+        {
+            if(st.empty() || height[i]>height[st.top()])
+                st.push(i);
+            else
+            {
+                int index=st.top();
+                st.pop();
+                ans=max(ans,height[index]*(st.empty()?i:i-st.top()-1));
+                i--;
+            }
+        }
+        return ans;
+    }
+};
+
+
+ {% endhighlight %}
+### python:
+
+{% highlight python %}
+
+class Solution:
+    # @param height, a list of integer
+    # @return an integer
+    def largestRectangleArea(self, height):
+        size=len(height)
+        if size==0:
+            return 0
+        sum=0
+        s=[]
+        height.append(0)
+        size+=1
+        i=0
+        while i<size:
+            if len(s)==0 or height[i]>height[s[-1]]:
+                s.append(i)
+            else:
+                temp=s[-1]
+                s.pop(-1)
+                sum=max(sum,height[temp]*(i if len(s)==0 else i-s[-1]-1))
+                i=i-1
+            i=i+1
+        return sum
+        
+ {% endhighlight %}
