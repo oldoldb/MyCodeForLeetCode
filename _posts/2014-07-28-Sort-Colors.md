@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Sort Colors
-date: 2014-07-28 15:52:16
+date: 2014-08-22 16:56:16
 disqus: y
 ---
 
@@ -19,6 +19,9 @@ disqus: y
 - A[p1]==1:p1指向下一个位置
 - A[p1]==2:swap(A[p1],A[p2]),同时p2指向前一个位置
 
+## 更新：
+总结leetcode数组题目
+
 ## 代码：
 
 ### C++:
@@ -31,7 +34,6 @@ public:
         int p1=0;
         int p2=n-1;
         while(p1<=p2)
-        {
             if(A[p1]==0)
             {
                 swap(A[p0],A[p1]);
@@ -39,15 +41,12 @@ public:
                 p1++;
             }
             else if(A[p1]==1)
-            {
                 p1++;
-            }
             else
             {
-                swap(A[p2],A[p1]);
+                swap(A[p1],A[p2]);
                 p2--;
             }
-        }
     }
 };
 
