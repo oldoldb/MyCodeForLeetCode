@@ -12,6 +12,7 @@ disqus: y
 
 
 ## 思路：
+https://oj.leetcode.com/discuss/294/java-implementation-vs-c-implementation
 When searching in BFS, maintain parent pointer of each node discovered in current level back to parent node in previous level, and finally use DFS to find all path from end to start.
 
 ## 更新：
@@ -23,79 +24,105 @@ When searching in BFS, maintain parent pointer of each node discovered in curren
 
 {% highlight Java %}
 public class Solution {
-    public List<List<String> > findLadders(String start, String end, HashSet<String> dict){
-    HashMap<String, Queue<String> > adjMap = new HashMap<String, Queue<String> >();
-    int curlen = 0;
-    boolean isfound = false;
-    List<List<String> >  res = new ArrayList<List<String> >();
-    Queue<String> queue = new LinkedList<String>();
-    Set<String> unvisited = new HashSet<String>(dict);
-    Set<String> visitedthislev = new HashSet<String>();
-    unvisited.add(end);
-    queue.offer(start);
-    int curlev = 1;
-    int nextlev = 0;
-    for(String word : unvisited){
-        adjMap.put(word, new LinkedList<String>());
-    }
-    unvisited.remove(start);
 
-    while(!queue.isEmpty()){
-        String curladder = queue.poll();
-        for(String nextladder : getNextLadder(curladder, unvisited)){
-            if(visitedthislev.add(nextladder)){
-                nextlev++;
-                queue.offer(nextladder);
+
+    /* Graph of example:
+     *                |--- dot --- dog ---|
+     * hit --- hot -- |     |       |     |--- cog
+     *                |--- lot --- log ---|
+     * 
+     * backward adjacent list:
+     * hit => null
+     * hot => hit
+     * dot => hot
+     * lot => hot
+     * dog => dot
+     * log => lot
+     * cog => dot -- log
+     */
+    public ArrayList<ArrayList<String>> findLadders(String start, String end, HashSet<String> dict) {
+         //<String, Queue> contaion all the adjacent words that is discover in its previous level
+        HashMap<String, Queue<String>> adjMap = new HashMap<String, Queue<String>>();
+        int currLen = 0;
+        boolean found = false;
+        ArrayList<ArrayList<String>> r = new ArrayList<ArrayList<String>>();//results
+        Queue<String> queue = new LinkedList<String>();                     //queue for BFS
+        Set<String> unVisited = new HashSet<String>(dict);                  //unvisited words
+        Set<String> visitedThisLev = new HashSet<String>();                 //check words visited during same level
+        unVisited.add(end);
+
+        queue.offer(start);
+        int currLev = 1;
+        int nextLev = 0;
+
+
+        for(String word : unVisited){
+            adjMap.put(word, new LinkedList<String>());
+        }
+        unVisited.remove(start);
+
+
+        //BFS
+        while( !queue.isEmpty() ){
+            String currLadder = queue.poll();
+            //for all unvisited words that are one character change from current word
+            for(String nextLadder : getNextLadder(currLadder, unVisited)){
+                if(visitedThisLev.add(nextLadder)) {
+                    nextLev ++;
+                    queue.offer(nextLadder);
+                }
+                adjMap.get(nextLadder).offer(currLadder);
+                if(nextLadder.equals(end) && !found) { found = true; currLen+=2;}
             }
-            adjMap.get(nextladder).offer(curladder);
-            if(nextladder.equals(end) && !isfound){
-                isfound = true;
-                curlen+= 2;
+
+            if(--currLev == 0){
+                if(found) break;
+                unVisited.removeAll(visitedThisLev);
+                currLev = nextLev;
+                nextLev = 0;
+                currLen ++;
             }
         }
-        if(--curlev == 0){
-            if(isfound){
-                break;
-            }
-            unvisited.removeAll(visitedthislev);
-            curlev = nextlev;
-            nextlev = 0;
-            curlen ++;
-        }
-    }
-    if(isfound){
-        LinkedList<String> temp = new LinkedList<String>();
-        temp.addFirst(end);
-        getLadders(start, end, temp, res, adjMap, curlen);
-    }
-    return res;
-}
 
-    private List<String> getNextLadder(String curladder, Set<String> unvisited){
-        List<String> nextladders = new ArrayList<String>();
-        StringBuffer replace = new StringBuffer(curladder);
-        for(int i=0;i<curladder.length();i++){
+        if(found){
+            LinkedList<String> p =new LinkedList<String>();
+            p.addFirst(end);
+            getLadders(start, end, p , r, adjMap, currLen);
+        }
+
+        return r;
+    }
+
+    //get all unvisited words that are one character change from current word
+    private ArrayList<String> getNextLadder(String currLadder, Set<String> unVisited){
+        ArrayList<String> nextLadders = new ArrayList<String>();
+        StringBuffer replace = new StringBuffer(currLadder);
+        for(int i = 0; i < currLadder.length(); i++){
             char old = replace.charAt(i);
-            for(char ch='a';ch<='z';ch++){
+            for(char ch = 'a'; ch <= 'z'; ch++){
                 replace.setCharAt(i, ch);
                 String replaced = replace.toString();
-                if(ch!=curladder.charAt(i) && unvisited.contains(replaced)){
-                    nextladders.add(replaced);
+                if(ch != currLadder.charAt(i) && unVisited.contains(replaced) ){
+                    nextLadders.add(replaced);
                 }
             }
             replace.setCharAt(i, old);
         }
-        return nextladders;
+        return nextLadders;
     }
-    private void getLadders(String start, String curladder, LinkedList<String> temp, List<List<String> > ans, HashMap<String, Queue<String> > adjMap, int len){
-        if(curladder.equals(start)){
-            ans.add(new ArrayList<String>(temp));
-        }else if(len>0){
-            Queue<String> adjs = adjMap.get(curladder);
+
+    // DFS to get all possible path from start to end
+    private void getLadders(String start, String currLadder, LinkedList<String> p, ArrayList<ArrayList<String>> solu, 
+                            HashMap<String, Queue<String>> adjMap, int len){
+        if(currLadder.equals(start)){
+            solu.add(new ArrayList<String> (p));
+        }
+        else if(len > 0) {
+            Queue<String> adjs = adjMap.get(currLadder);
             for(String lad : adjs){
-                temp.addFirst(lad);
-                getLadders(start, lad, temp, ans, adjMap, len-1);
-                temp.removeFirst();
+                p.addFirst(lad);
+                getLadders(start, lad, p, solu, adjMap, len-1);
+                p.removeFirst();
             }
         }
     }
