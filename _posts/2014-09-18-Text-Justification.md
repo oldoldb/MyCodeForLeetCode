@@ -21,7 +21,7 @@ https://oj.leetcode.com/discuss/6532/i-have-an-accepted-c-code-to-share
 
 ### C++:
 
-{% highlight c++}
+{% highlight c++ %}
 class Solution {
 public:
     void process(vector<string> &words, vector<string>&result, int start, int end, int L) {
