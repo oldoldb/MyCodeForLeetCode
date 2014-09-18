@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Word Ladder II 
-date: 2014-09-018 16:57:16
+date: 2014-09-18 16:57:16
 disqus: y
 ---
 
@@ -21,7 +21,7 @@ When searching in BFS, maintain parent pointer of each node discovered in curren
 
 ### Java:
 
-{% highlight java %}
+{% highlight Java %}
 public class Solution {
     public List<List<String> > findLadders(String start, String end, HashSet<String> dict){
     HashMap<String, Queue<String> > adjMap = new HashMap<String, Queue<String> >();
