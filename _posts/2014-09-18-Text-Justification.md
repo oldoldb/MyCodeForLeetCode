@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Text Justification 
-date: 2014-09-18 15:08:16
+date: 2014-09-18 17:08:16
 disqus: y
 ---
 
