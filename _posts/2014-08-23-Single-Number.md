@@ -1,0 +1,47 @@
+---
+layout: post
+title: Single Number
+date: 2014-08-23 10:39:16
+disqus: y
+---
+
+## 题意：
+给一个整数数组，每个元素都出现两次，只有一个元素出现一次，求出只出现一次的元素
+
+## 要求：
+线性时间，不使用额外内存
+
+## 思路：
+leetcode上的第一题。因为每个元素都出现两次只有一个元素出现一次，所以第一反应是用异或。a^a=0,0^b=b，显然遍历一边数组最后的异或结果就是所求元素。时间复杂度为O(n)，但这里没有满足不使用额外内存（增加了记录变量ans和枚举下标i），但是还是AC了，这个OJ可能无法检测内存的额外开销吧
+
+##更新：
+总结leetcode数学题目
+
+## 代码：
+### C++:
+
+{% highlight c++ %}
+class Solution {
+public:
+    int singleNumber(int A[], int n) {
+        int ans=0;
+        for(int i=0;i<n;i++)
+            ans=ans^A[i];
+        return ans;
+    }
+};
+
+ {% endhighlight %}
+### python:
+
+{% highlight python %}
+class Solution:
+    # @param A, a list of integer
+    # @return an integer
+    def singleNumber(self, A):
+        ans=0
+        for index in range(len(A)):
+            ans^=A[index]
+        return ans
+
+ {% endhighlight %}
