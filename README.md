@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-MyCodeForLeetCode
-=================
-
-My Code for LeetCode OJ
-
-For more details：https://github.com/oldoldb/MyCodeForLeetCode/tree/gh-pages
-=======
-My Code For LeetCode OJ
+﻿My Code For LeetCode OJ
 ========
 
 This project includes my code for [LeetCode OJ](https://oj.leetcode.com/problems/)
@@ -33,4 +25,4 @@ I'm a intern in MSRA at present, working for [BingIME](http://bing.msn.cn/pinyin
 3. [csdnBlog](http://blog.csdn.net/oldoldb).
 4. [cnblogsBlog](http://www.cnblogs.com/oldoldb).
 
->>>>>>> 1dae36951f02002468e47a59c563c1ee130a4dba
+
