@@ -9,20 +9,3 @@ More details about this site: http://oldoldb.com/?p=212
 <br />
 
 ---
-### About Me
-
-I'm VeryBigMan and my email is xue-yajie@163.com
-
-<br />
-
-I'm a intern in MSRA at present, working for [BingIME](http://bing.msn.cn/pinyin/android/)
-<br />
-
-### Contact Me
-
-1. [HomePage](http://oldoldb.com).
-2. [Github](https://github.com/oldoldb).
-3. [csdnBlog](http://blog.csdn.net/oldoldb).
-4. [cnblogsBlog](http://www.cnblogs.com/oldoldb).
-
-
